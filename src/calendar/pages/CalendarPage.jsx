@@ -8,21 +8,13 @@ import { CalendarEvent, CalendarModal, NavBar } from "..";
 
 import { localizer, getMessagesES } from '../../helpers';
 
+import { useUiStore, useCalendarStore } from '../../hooks';
 
-const events = [{
-    title: 'Cumpleaños del Jefe',
-    notes: 'Comprar un regalo',
-    start: new Date(),
-    end: addHours( new Date(), 2 ),
-    bgColor: '#fafafa',
-    user: {
-        _id: '123',
-        name: 'Mario'
-    }
-}];
 
 export const CalendarPage = () => {
 
+    const { openDateModal } = useUiStore();
+    const { events } = useCalendarStore();
     const [lastView, setLastView] = useState( localStorage.getItem('lastView') || 'week' );
 
     const eventStyleGetter = ( event, start, end, isSelected ) => {
@@ -39,7 +31,8 @@ export const CalendarPage = () => {
         }
     }
     const onDoubleClick = (e) => {
-        console.log({ doubleClick: e })
+        // console.log({ doubleClick: e });
+        openDateModal();
     };
 
     const onSelect = (e) => {
